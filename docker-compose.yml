@@ -1,0 +1,40 @@
+services:
+  # Backend Service (Django)
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      # This tells your app the database is at the 'database' host
+      - MONGO_HOST=database 
+      - MONGO_URI=mongodb://database:27017/
+    container_name: django-backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  # Frontend Service (React + Nginx)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  # Database Service (MongoDB)
+  database:
+    image: mongo:latest
+    container_name: mongodb # The container name is just a label
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

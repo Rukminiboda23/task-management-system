@@ -1,8 +1,14 @@
+// frontend/src/App.test.js
+
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+// We are renaming the test to be more descriptive
+test('renders the main dashboard heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  
+  // The test now looks for the text "Dashboard" which is in our Header component
+  const headingElement = screen.getByText(/Dashboard/i);
+  
+  expect(headingElement).toBeInTheDocument();
 });

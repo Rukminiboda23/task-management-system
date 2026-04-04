@@ -1,0 +1,8 @@
+import os
+from pymongo import MongoClient
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://database:27017/")
+
+client = MongoClient(MONGO_URI)
+db = client["intern_db"]
+tasks_collection = db["tasks"]

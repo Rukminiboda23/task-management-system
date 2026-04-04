@@ -1,38 +1,419 @@
-.App {
-  text-align: center;
+/* frontend/src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- 1. THEME VARIABLES --- */
+:root {
+  --font-family: 'Inter', sans-serif;
+  --transition-speed: 0.2s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Light Theme */
+.light {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-color: rgba(149, 157, 165, 0.1);
+  --primary-color: #4f46e5;
+  --primary-color-hover: #4338ca;
+  --danger-color: #dc2626;
+  --danger-color-hover: #b91c1c;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Dark Theme */
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --primary-color: #6366f1;
+  --primary-color-hover: #4f46e5;
+  --danger-color: #f87171;
+  --danger-color-hover: #ef4444;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* --- 2. LAYOUT --- */
+.layout-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* --- 3. SIDEBAR STYLES --- */
+.sidebar-logo {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.nav-item.active, .nav-item:hover {
+  background-color: var(--primary-color);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-task-btn-sidebar, .theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.add-task-btn-sidebar {
+    background-color: var(--primary-color);
+    color: white;
+}
+.add-task-btn-sidebar:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.theme-toggle {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+.theme-toggle:hover {
+  background-color: var(--border-color);
+}
+
+/* --- 4. MAIN CONTENT HEADER --- */
+.main-header {
+  margin-bottom: 40px;
+}
+.main-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+.main-header p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* --- 5. TASK SECTIONS & LIST --- */
+.task-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.task-sections h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.task-list {
+    display: grid;
+    gap: 20px;
+}
+
+/* --- 6. TASK CARD --- */
+.task-item {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    position: relative;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.task-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+.status-todo { border-color: #64748b; }
+.status-in-progress { border-color: #f59e0b; }
+.status-done { border-color: #10b981; }
+
+.task-info { display: flex; align-items: flex-start; gap: 16px; }
+.task-info input[type="checkbox"] { margin-top: 3px; width: 18px; height: 18px; }
+.task-text strong { font-size: 18px; font-weight: 600; margin-bottom: 6px; display: block; }
+.task-text p { margin: 0; color: var(--text-secondary); line-height: 1.5; }
+.status-done .task-text strong, .status-done .task-text p { text-decoration: line-through; color: var(--text-secondary); }
+
+.task-meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.pill svg { width: 14px; height: 14px; }
+
+/* Dynamic Pill Colors */
+.light .priority-low { background-color: #e0e7ff; color: #3730a3; }
+.light .priority-medium { background-color: #fef3c7; color: #92400e; }
+.light .priority-high { background-color: #fee2e2; color: #991b1b; }
+.light .category { background-color: #d1fae5; color: #065f46; }
+.dark .priority-low { background-color: #3730a3; color: #e0e7ff; }
+.dark .priority-medium { background-color: #92400e; color: #fef3c7; }
+.dark .priority-high { background-color: #991b1b; color: #fee2e2; }
+.dark .category { background-color: #065f46; color: #d1fae5; }
+.due-date { background-color: var(--border-color); color: var(--text-secondary); }
+
+.task-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+.task-item:hover .task-actions { opacity: 1; }
+.task-actions button {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    transition: background-color var(--transition-speed);
+}
+.edit-btn { background-color: var(--primary-color); }
+.edit-btn:hover { background-color: var(--primary-color-hover); }
+.delete-btn { background-color: var(--danger-color); }
+.delete-btn:hover { background-color: var(--danger-color-hover); }
+
+/* Ensure modal styles from previous step are still present and work with new theme */
+
+/* Find this existing rule */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* <-- ADD THIS LINE */
+}
+
+/* Find this existing rule */
+.task-sections {
+  display: grid;
+  /* --- CHANGE THIS --- */
+  grid-template-columns: 1fr 1fr; /* We'll make Done section full-width below */
+  gap: 40px;
+}
+
+/* --- ADD THIS NEW RULE AT THE END OF THE FILE --- */
+.done-section {
+    grid-column: 1 / -1; /* Make this section span the full width */
+    opacity: 0.7; /* Make completed tasks less prominent */
+}
+
+/* frontend/src/App.css */
+/* --- DELETE your old modal styles and REPLACE with this entire block --- */
+
+/* --- 6. THEME-AWARE MODAL (DEFINITIVE FIX) --- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg-secondary); /* Use theme variable for background */
+  color: var(--text-primary);     /* Use theme variable for text */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 550px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: var(--text-primary); /* Use theme variable */
+  text-align: center;
+}
+
+.modal-content .form-group {
+  margin-bottom: 20px;
+}
+
+.modal-content .form-group-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-content .form-group-row .form-group {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.modal-content .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-secondary); /* Use theme variable */
+  font-size: 14px;
+}
+
+/* --- Core fix for inputs, textareas, and selects --- */
+.modal-content .form-group input,
+.modal-content .form-group textarea,
+.modal-content .form-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);   /* Use primary background from theme */
+  color: var(--text-primary);            /* Use primary text from theme */
+  border: 1px solid var(--border-color); /* Use border from theme */
+  box-sizing: border-box;
+}
+
+.modal-content .form-group input:focus,
+.modal-content .form-group textarea:focus,
+.modal-content .form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+/* Specific fix for the calendar icon in dark mode */
+body.dark .modal-content input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* --- Core fix for buttons --- */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-actions .btn-cancel {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+.modal-actions .btn-cancel:hover {
+  background-color: var(--border-color);
+}
+
+.modal-actions .btn-save {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+.modal-actions .btn-save:hover {
+  background-color: var(--primary-color-hover);
+}
+
+/* In frontend/src/App.css */
+
+/* --- Add this near your .theme-toggle styles --- */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--text-secondary);
+  width: 100%;
+  text-align: left;
+  transition: background-color var(--transition-speed);
+}
+
+.logout-btn:hover {
+  background-color: var(--danger-color);
+  color: white;
 }
