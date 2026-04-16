@@ -77,7 +77,7 @@ DATABASES = {
 }
 
 # Ensure your EC2 IP and the service name are allowed
-ALLOWED_HOSTS = ['54.226.167.58', 'localhost', '127.0.0.1', 'backend']
+ALLOWED_HOSTS = ['44.223.184.19', 'localhost', '127.0.0.1']
 
 
 # Password validation
