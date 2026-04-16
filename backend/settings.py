@@ -5,10 +5,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v!54$18j=7w&7oo##w*qo((wg2#^=dxa7k!h@7n!iw^pk)wb$v'
 
@@ -43,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'backend.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -60,11 +56,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
+ASGI_APPLICATION = 'asgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 # backend/settings.py
 
@@ -135,3 +130,5 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+DJANGO_SETTINGS_MODULE = 'settings'
